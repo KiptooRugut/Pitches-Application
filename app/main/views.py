@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request, redirect, url_for, abort, flash
 from . import main
 
 # Views
@@ -7,4 +7,7 @@ def index():
     '''
     View root page function that returns the index page and its data.
     '''
-    return render_template('index.html')
+    return render_template('index.html', posts=all_posts)
+
+
+
