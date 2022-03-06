@@ -1,2 +1,36 @@
 {% extends 'base.html'%} {% import 'macros.html' as macro %} {% block styles%} {{ super() }}
 <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}"> {% endblock %} {% block content %}
+
+<div class="container">
+    <h1 class="text-center"> Welcome To Pitches WebSite</h1>
+    <h4><em>The Floor is Yours</em></h4>
+    <button class="btn btn-lg bg-primary"><a href="/newpitch" class="tag"> Create A New Pitch</a></button>
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-md-12">
+            <div class="panel panel-default ">
+                <div class="panel-heading text-center">
+                    <h5>Title : {{ post.title }}</h5>
+                </div>
+                <div class="panel-body text-start">
+                    <h5>Category : {{ post.category }}</h5>
+                    <h5>Content : {{ post.content }}</h5>
+                    <p>Posted on : {{post.date_posted.strftime('%Y-%m-%d')}}</p>
+                    <p>Posted by : {{post.user.username}}</p>
+                </div>
+                <div class="panel-footer">
+                    <div class="pitch">
+                        <h6>{{pitch.pitch_comment}}</h6>
+                        <p>Posted on {{pitch.posted.strftime('%Y-%m-%d')}}</p>
+                        <a href="/{{pitch.id}}?like=1">
+                            <img src="../static/icons/icons8-good-quality (1).gif" alt="Icon" width="40px" height="40px"></a>
+                        {{pitch.likes}}
+                        <a href="/{{pitch.id}}?dislike=1">
+                            <img src="../static/icons/icons8-thumbs-down-64.png" alt="Down" width="40px" height="40px"></a>
+                        {{pitch.dislikes}}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
