@@ -52,3 +52,16 @@ def update_pic(uname):
     return redirect(url_for('main.profile', uname=uname))
 
 
+@main.route('/comment', methods=['GET', 'POST'])
+@login_required
+def add_comment():
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comment(name=form.name.data)
+        db.session.add(comment)
+        db.session.commit()
+        flash('Comment added successfully.')
+        return redirect(url_for('.index'))
+    return render_template('comment.html', form=form)
+
+
