@@ -107,3 +107,25 @@ def post_details(id):
     return render_template('comment.html', post=posts, comment=comments, comment_form=form)
 
 
+@main.route('/like/<int:id>', methods=['GET', 'POST'])
+@login_required
+def like(id):
+    post = Post.query.get(id)
+    if post is None:
+        abort(404)
+    like = Upvote.query.filter_by(user_id=current_user.id, post_id=id).first()
+    if like is not None:
+        db.session.delete(like)
+        db.session.commit()
+        flash('You have successfully unupvoted the pitch!')
+        return redirect(url_for('main.index'))
+    new_like = Upvote(
+        user_id=current_user.id,
+        post_id=id
+    )
+    db.session.add(new_like)
+    db.session.commit()
+    flash('You have successfully upvoted the pitch!')
+    return redirect(url_for('main.index'))
+
+
