@@ -1,8 +1,8 @@
 body {
-    background-image: url(/static/images/flare_wallpaper12.jpg);
+    background-image: url(/static/images/wallpaperflare.com_wallpaper5.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    color: #669966!important;
+    color: #306130!important;
     font-family: Verdana, Arial, sans-serif;
     font-size: 18px;
 }
@@ -21,6 +21,7 @@ button {
 * {
     padding: 0;
     margin: 0;
+    bottom: 0;
 }
 
 h5 {
@@ -30,8 +31,6 @@ h5 {
 .footer-dark {
     color: #f0f9ff;
     background-color: #282d32;
-    margin-bottom: 0%;
-    bottom: 0;
 }
 
 .footer-dark h3 {
