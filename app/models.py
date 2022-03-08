@@ -98,3 +98,23 @@ class Category(db.Model):
         return '<Category %r>' % self.name
 
 
+class Upvote(db.Model):
+    _tablename_ = 'upvotes'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_upvotes(cls, id):
+        upvote = Upvote.query.filter_by(post_id=id).all()
+        return upvote
+
+    def _repr_(self):
+        return f'{self.user_id}:{self.post_id}'
+
+
