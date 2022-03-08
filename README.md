@@ -4,8 +4,7 @@
 
 
 ## Description
-This application gives users the opportunity to post their pitches and get reaction from other people/viewers.
-
+This is an application that allows users to use that one minute wisely. The users will submit their one minute pitches and other users will vote on them and leave comments to give their feedback on them. The pitches are organized by category. You can have different categories like pickup lines, interview pitch, product pitch, promotion pitch.
 As a user of the web application you will be able to:
 
 1. Sign up and log in
