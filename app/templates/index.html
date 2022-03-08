@@ -1,10 +1,8 @@
-{% extends 'base.html'%} {% import 'macros.html' as macro %} {% block styles%} {{ super() }}
+ {% extends 'base.html'%} {% import 'macros.html' as macro %} {% block styles%} {{ super() }}
 <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}"> {% endblock %} {% block content %}
 
-<div class="container">
-    <h1 class="text-center"> Welcome To Pitches WebSite</h1>
-    <h4><em>The Floor is Yours</em></h4>
-    <button class="btn btn-lg bg-primary"><a href="/newpitch" class="tag"> Create A New Pitch</a></button>
+<div class="container-fluid">
+    <h1 class="text-center"> Welcome To Pitches</h1>
     <div class="row">
         {% for post in posts %}
         <div class="col-md-12">
@@ -19,61 +17,56 @@
                     <p>Posted by : {{post.user.username}}</p>
                 </div>
                 <div class="panel-footer">
-                    <div class="pitch">
-                        <h6>{{pitch.pitch_comment}}</h6>
-                        <p>Posted on {{pitch.posted.strftime('%Y-%m-%d')}}</p>
-                        <a href="/{{pitch.id}}?like=1">
-                            <img src="../static/icons/icons8-good-quality (1).gif" alt="Icon" width="40px" height="40px"></a>
-                        {{pitch.likes}}
-                        <a href="/{{pitch.id}}?dislike=1">
-                            <img src="../static/icons/icons8-thumbs-down-64.png" alt="Down" width="40px" height="40px"></a>
-                        {{pitch.dislikes}}
+                    <a href="{{ url_for('main.post_details', id = post.id)}}"><button class="btn-success">Add a
+                            comment</button></a>
+
+
+                    <div class="col-md-4 upvote">
+                        <span class="foot"> <a href="{{url_for('main.like',id = post.id)}}"><button class="btn-success">Upvotes:{{post.upvote.count()}}</button></a></span>
+                    </div>
+                    <div class="col-md-4 downvote">
+                        <span class="foot"> <a href="{{url_for('main.dislike',id = post.id)}}"> <button class="btn-danger">Downvotes:{{post.downvote.count()}}</button></a></span>
                     </div>
                 </div>
 
             </div>
 
         </div>
-        {% endfor %} {% block footer %}
-        <div class="footer-dark">
-            <footer>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6 col-md-3 item">
-                            <h3>Services</h3>
-                            <ul>
-                                <li><a href="#">Pitches</a></li>
-                                <li><a href="#">Articles</a></li>
-                                <li><a href="#">Development & Hosting</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-6 col-md-3 item">
-                            <h3>About</h3>
-                            <ul>
-                                <li><a href="#">Organization</a></li>
-                                <li><a href="#">Team</a></li>
-                                <li><a href="#">Careers</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6 item text">
-                            <h3>Pitches WebSite</h3>
-                            <p>Pitches Website provides a perfect balance between design guardrails and flexibility. It brings everything a user expect in a modern pitch tool</p>
-                        </div>
-                        <div class="d-flex">
-                            <center>
-                                <ul>
-                                    <a href="#" class="fa fa-facebook"></a>
-                                    <a href="#" class="fa fa-linkedin"></a>
-                                    <a href="#" class="fa fa-google"></a>
-                                    <a href="#" class="fa fa-twitter"></a>
-                                    <a href="#" class="fa fa-you-tube"></a>
-                                </ul>
-                            </center>
-                        </div>
-                    </div>
-                    <p class="copyright">Pitches Website © 2022</p>
-                </div>
-            </footer>
-        </div>
+        {% endfor %}
     </div>
-</div> {% endblock footer %} {% endblock %}
+
+    {% block footer %}
+    <div class="footer-dark">
+        <footer style="background-color: black; ">
+            <div class="container ">
+                <div class="row ">
+                    <div class="col-sm-6 col-md-3 item ">
+                        <h3>Services</h3>
+                        <ul>
+                            <li>
+                                <a href="#">Pitches-Hub</a>
+                            </li>
+                            <li><a href="#">Development</a></li>
+                            <li><a href="#">Hosting</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="#">Company</a></li>
+                            <li><a href="#">Team</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 item text">
+                        <h3>Pitches-Hub</h3>
+                        <p>Pitch strikes the perfect balance between design guardrails and flexibility. It brings everything a User expect in a modern collaboration tool to presentations and it’s awesome</p>
+                    </div>
+                </div>
+                <p class="copyright ">Pitches-Websites © 2022</p>
+            </div>
+        </footer>
+    </div>
+</div> {% endblock footer %}
+
+<br> {% endblock%}
