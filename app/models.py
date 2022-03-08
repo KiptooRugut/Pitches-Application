@@ -29,3 +29,27 @@ class Post(db.Model):
         return f'Post {self.title}'
 
 
+class Comment(db.Model):
+    __tablename__ = 'comment'
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.String(255))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    post_id = db.Column(db.Integer, db.ForeignKey("post.id"))
+    
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comment(cls, post_id):
+        comments = Comment.query.filter_by(post_id=post_id).all()
+        return comments
+
+    @classmethod
+    def get_comment_author(cls, user_id):
+        author = User.query.filter_by(id=user_id).first()
+
+        return author
+
+
