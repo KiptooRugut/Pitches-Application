@@ -129,3 +129,27 @@ def like(id):
     return redirect(url_for('main.index'))
 
 
+@main.route('/dislike/<int:id>', methods=['GET', 'POST'])
+@login_required
+def dislike(id):
+    posts = Post.query.get(id)
+    if posts is None:
+        abort(404)
+    
+    dislike = Downvote.query.filter_by(
+        user_id=current_user.id, post_id=id).first()
+    if dislike is not None:
+       
+        db.session.delete(dislike)
+        db.session.commit()
+        flash('You have successfully undownvoted the pitch!')
+        return redirect(url_for('.index'))
+
+    new_dislike = Downvote(
+        user_id=current_user.id,
+        post_id=id
+    )
+    db.session.add(new_dislike)
+    db.session.commit()
+    flash('You have successfully downvoted the pitch!')
+    return redirect(url_for('.index'))
