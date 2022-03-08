@@ -118,3 +118,21 @@ class Upvote(db.Model):
         return f'{self.user_id}:{self.post_id}'
 
 
+class Downvote(db.Model):
+    _tablename_ = 'downvotes'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_downvotes(cls, id):
+        downvote = Downvote.query.filter_by(post_id=id).all()
+        return downvote
+
+    def _repr_(self):
+        return f'{self.user_id}:{self.post_id}'
