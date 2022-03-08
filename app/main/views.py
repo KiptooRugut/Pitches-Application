@@ -65,3 +65,24 @@ def add_comment():
     return render_template('comment.html', form=form)
 
 
+@main.route('/post', methods=['GET', 'POST'])
+@login_required
+def new_post():
+    post_form = PostForm()
+    if post_form.validate_on_submit():
+        title = post_form.post_title.data
+        category = post_form.post_category.data
+        content = post_form.post_content.data
+        new_post = Post(title=title, content=content,
+                        user=current_user, category=category)
+        new_post.save_post()
+        db.session.add(new_post)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+
+    else:
+        all_posts = Post.query.order_by(Post.date_posted).all()
+
+    return render_template('pitches.html', posts=all_posts, post_form=post_form)
+
+
